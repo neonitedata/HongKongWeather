@@ -39,9 +39,30 @@ fs.readdir( './orgData', function( err, files ) {
  */
 function formatFile(err, content){
     // do Formating
-    var newStr = content.split(' ');
-    console.log( newStr)
+    console.log(csvJSON(content));
 
     // Append to existing Clean File
-    fs.appendFileSync(dataFile, newStr)
+   // fs.appendFileSync(dataFile, newStr)
 }
+
+function csvJSON(csv){
+    var lines = csv.split("\n");
+    var result = [];
+    var headers = lines[1].split(",");
+
+    for(var i = 1; i < lines.length; i++) {
+        var obj = {};
+        var currentline=lines[i].split(",");
+
+        for( var j = 0; j<headers.length; j++ ){
+            obj[headers[j]] = currentline[j];
+        }
+  
+        result.push(obj);
+    }
+    
+
+    //return result; //JavaScript object
+    return JSON.stringify(result); //JSON
+}
+  
