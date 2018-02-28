@@ -1,0 +1,16 @@
+{
+  "name": "hongkongweather",
+  "version": "1.0.0",
+  "description": "Weather Datavis for Hong Kong",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "weather",
+    "hong",
+    "kong"
+  ],
+  "author": "dennys hess",
+  "license": "ISC"
+}

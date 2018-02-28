@@ -1,7 +1,10 @@
 var fs = require('fs');
 var readDir = './orgData/';
+var dataFile = './cleanData/database.csv';
 
-// Read Directory
+/**
+ * Read Directory and loop all files
+ */
 fs.readdir( './orgData', function( err, files ) {
 
     // Error Throw if the directory isn't existing
@@ -21,7 +24,7 @@ fs.readdir( './orgData', function( err, files ) {
             }
             
             // send file path to format File function
-            fs.readFile(file,'utf8', formatFile);
+            fs.readFile(readDir+file,'utf8', formatFile);
         });
 
     });
@@ -29,8 +32,16 @@ fs.readdir( './orgData', function( err, files ) {
 });
 
 
-
+/**
+ * Formating the file to fit into the new textfile
+ * @param {*} err 
+ * @param {*} content 
+ */
 function formatFile(err, content){
-    console.log( content )
+    // do Formating
+    var newStr = content.split(' ');
+    console.log( newStr)
 
+    // Append to existing Clean File
+    fs.appendFileSync(dataFile, newStr)
 }
