@@ -34,8 +34,8 @@ fs.readdir( './orgData', function( err, files ) {
 
 /**
  * Formating the file to fit into the new textfile
- * @param {*} err 
- * @param {*} content 
+ * @param {obj} err 
+ * @param {string} content 
  */
 function formatFile(err, content){
     // do Formating
