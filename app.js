@@ -20,10 +20,8 @@ fs.readdir( './orgData', function( err, files ) {
                 return;
             }
             
-            fs.readFile(readDir+file,'utf8', function(err, content){
-                
-            });
-
+            // send file path to format File function
+            fs.readFile(file,'utf8', formatFile);
         });
 
     });
@@ -32,6 +30,7 @@ fs.readdir( './orgData', function( err, files ) {
 
 
 
-function formatFile(){
+function formatFile(err, content){
+    console.log( content )
 
 }
