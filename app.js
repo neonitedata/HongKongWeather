@@ -39,10 +39,9 @@ fs.readdir( './orgData', function( err, files ) {
  */
 function formatFile(err, content){
     // do Formating
-    console.log(csvJSON(content));
+    var dailyRecord = csvJSON(content);
 
-    // Append to existing Clean File
-   // fs.appendFileSync(dataFile, newStr)
+
 }
 
 function csvJSON(csv){
