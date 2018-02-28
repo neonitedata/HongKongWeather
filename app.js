@@ -24,12 +24,22 @@ fs.readdir( './orgData', function( err, files ) {
             }
             
             // send file path to format File function
-            fs.readFile(readDir+file,'utf8', formatFile);
+           fs.readFile(readDir+file,'utf8', formatFile);
         });
 
     });
 
 });
+
+
+/**
+ * Get Date in new format
+ * @param {string} file 
+ */
+function extractDate( file ){
+    var date = file.split('l');
+    console.log(date[0])    
+}
 
 
 /**
@@ -41,12 +51,22 @@ function formatFile(err, content){
     // do Formating
     var dailyRecord = csvJSON(content);
 
-
+    //fs.appendFileSync(dataFile, dailyRecord);    
 }
 
+
+
+/**
+ * Convert to JSON Format for easy access to data points
+ * @param {string} csv 
+ */
 function csvJSON(csv){
     var lines = csv.split("\n");
     var result = [];
+    var date = lines[0];
+
+    console.log(date)
+    
     var headers = lines[1].split(",");
 
     for(var i = 1; i < lines.length; i++) {
