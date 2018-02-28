@@ -1,26 +1,37 @@
 var fs = require('fs');
+var readDir = './orgData/';
 
 // Read Directory
-fs.readdir( 'orgData', function( err, files ) {
+fs.readdir( './orgData', function( err, files ) {
+
     // Error Throw if the directory isn't existing
     if( err ) {
         console.error( "Could not list the directory.", err );
         process.exit( 1 );
-    } 
-
+    }
+    
+    // loop all files within directory
     files.forEach( function( file, index ) {
-            var fromPath = path.join( moveFrom, file );
-            var toPath = path.join( moveTo, file );
 
-            fs.stat( fromPath, function( error, stat ) {
-                if( error ) {
-                    console.error( "Error stating file.", error );
-                    return;
-                }
-
+        // Check if file exists;
+        fs.stat( readDir+file, function( error, stat ) {
+            if( error ) {
+                console.error( "Error stating file.", error );
+                return;
+            }
+            
+            fs.readFile(readDir+file,'utf8', function(err, content){
                 
+            });
 
-                });
-            } );
-    } );
-} );
+        });
+
+    });
+
+});
+
+
+
+function formatFile(){
+
+}
