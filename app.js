@@ -4,7 +4,7 @@ var fs = require('fs');
 var readDir = './orgData/';
 var dataFile = './cleanData/';
 var outputFormat = 'json';
-
+var dataSet = {};
 
 // Init the app
 init();
@@ -33,7 +33,7 @@ function init(){
                 }
                 
                 // send file path to format File function
-            fs.readFile(readDir+file,'utf8', saveToFile);
+            fs.readFile(readDir+file,'utf8', addToDataset);
             });
         });
     });
@@ -59,9 +59,18 @@ function extractDate( date ){
  * @param {obj} err 
  * @param {string} content 
  */
-function saveToFile(err, content){
+function addToDataset(err, content){
     // do Formating
     var dailyRecord = formatData(content);
+    for( var i = 0; i<dailyRecord[0].length; i++ ){
+        if( !dataSet[dailyRecord[0][i]] ){
+            console.log( dailyRecord[0][i] )
+           // dataSet[dailyRecord[0][i]] = new Array();
+        }else{  
+             console.log( dailyRecord[0][i] ) 
+            //dataSet[dailyRecord[0][i]]
+        }
+    } 
     console.log( dailyRecord )
     //fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);    
 }
@@ -81,13 +90,14 @@ function formatData(csv){
     /*for(var h = 0; h<headers.length; h++){
         result[headers[h]] = {}
     }*/
-
-    // Loop lines
+   
     var obj = {};
-
+    
+    // Loop lines (stations)
     for(var i = 2; i < lines.length; i++) {
         var currentline = lines[i].split(",");
         
+        // Loop through data points within line (station)
         for( var j = 1; j<headers.length; j++ ){
             if( !obj[headers[j]] )
                 obj[headers[j]] = new Array(currentline[j]);
