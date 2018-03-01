@@ -4,7 +4,10 @@ var fs = require('fs');
 var readDir = './orgData/';
 var dataFile = './cleanData/database.csv';
 
+
+// Init the app
 init();
+
 
 /**
  * Read Directory and loop all files
@@ -88,4 +91,3 @@ function csvJSON(csv){
     //return result; //JavaScript object
     return [JSON.stringify(result), date]; // JSON, Time/Date 
 }
-  
