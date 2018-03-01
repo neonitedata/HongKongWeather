@@ -37,17 +37,13 @@ fs.readdir( './orgData', function( err, files ) {
  * @param {string} file 
  */
 function extractDate( date ){
-    var time = date.slice(28, 33)
+    var time = date.slice(28, 33)+":00";
     var day = date.slice(49, date.length)
 
-    time += ":00";
+    date = day+" "+time+" GMT";
+    date = new Date( date );
 
-    console.log(time);    
-    console.log(day);
-
-    date = day+" "+time;
-    console.log( new Date( date ) )
-    
+    return date;
 }
 
 
@@ -59,7 +55,7 @@ function extractDate( date ){
 function formatFile(err, content){
     // do Formating
     var dailyRecord = csvJSON(content);
-
+    console.log(dailyRecord)
     //fs.appendFileSync(dataFile, dailyRecord);    
 }
 
@@ -68,13 +64,14 @@ function formatFile(err, content){
 /**
  * Convert to JSON Format for easy access to data points
  * @param {string} csv 
+ * @return {array}
  */
 function csvJSON(csv){
     var lines = csv.split("\n");
     var result = [];
     var date = lines[0];
 
-    extractDate(date);
+    date = extractDate(date);
     
     var headers = lines[1].split(",");
 
@@ -88,9 +85,8 @@ function csvJSON(csv){
   
         result.push(obj);
     }
-    
 
     //return result; //JavaScript object
-    return JSON.stringify(result); //JSON
+    return [JSON.stringify(result), date]; //JSON
 }
   
