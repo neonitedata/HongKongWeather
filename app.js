@@ -1,4 +1,6 @@
 var fs = require('fs');
+
+// Path Definition
 var readDir = './orgData/';
 var dataFile = './cleanData/database.csv';
 
@@ -60,7 +62,6 @@ function formatFile(err, content){
 }
 
 
-
 /**
  * Convert to JSON Format for easy access to data points
  * @param {string} csv 
@@ -69,10 +70,7 @@ function formatFile(err, content){
 function csvJSON(csv){
     var lines = csv.split("\n");
     var result = [];
-    var date = lines[0];
-
-    date = extractDate(date);
-    
+    var date =  extractDate(lines[0]);
     var headers = lines[1].split(",");
 
     for(var i = 1; i < lines.length; i++) {
@@ -87,6 +85,6 @@ function csvJSON(csv){
     }
 
     //return result; //JavaScript object
-    return [JSON.stringify(result), date]; //JSON
+    return [JSON.stringify(result), date]; // JSON, Time/Date 
 }
   
