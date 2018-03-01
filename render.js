@@ -1,5 +1,5 @@
 
-function renderData{
+function renderData(){
 
 
 

@@ -2,7 +2,8 @@ var fs = require('fs');
 
 // Path Definition
 var readDir = './orgData/';
-var dataFile = './cleanData/database.csv';
+var dataFile = './cleanData/';
+var outputFormat = 'json';
 
 
 // Init the app
@@ -32,7 +33,7 @@ function init(){
                 }
                 
                 // send file path to format File function
-            fs.readFile(readDir+file,'utf8', formatFile);
+            fs.readFile(readDir+file,'utf8', saveToFile);
             });
         });
     });
@@ -58,11 +59,11 @@ function extractDate( date ){
  * @param {obj} err 
  * @param {string} content 
  */
-function formatFile(err, content){
+function saveToFile(err, content){
     // do Formating
-    var dailyRecord = csvJSON(content);
-    console.log(dailyRecord)
-    //fs.appendFileSync(dataFile, dailyRecord);    
+    var dailyRecord = formatData(content);
+    console.log( dailyRecord )
+    //fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);    
 }
 
 
@@ -71,23 +72,30 @@ function formatFile(err, content){
  * @param {string} csv 
  * @return {array}
  */
-function csvJSON(csv){
+function formatData(csv){
     var lines = csv.split("\n");
-    var result = [];
     var date =  extractDate(lines[0]);
     var headers = lines[1].split(",");
 
-    for(var i = 1; i < lines.length; i++) {
-        var obj = {};
-        var currentline=lines[i].split(",");
+    // define base of line object
+    /*for(var h = 0; h<headers.length; h++){
+        result[headers[h]] = {}
+    }*/
 
-        for( var j = 0; j<headers.length; j++ ){
-            obj[headers[j]] = currentline[j];
+    // Loop lines
+    var obj = {};
+
+    for(var i = 2; i < lines.length; i++) {
+        var currentline = lines[i].split(",");
+        
+        for( var j = 1; j<headers.length; j++ ){
+            if( !obj[headers[j]] )
+                obj[headers[j]] = new Array(currentline[j]);
+            else
+                obj[headers[j]].push(currentline[j])
         }
-  
-        result.push(obj);
     }
 
     //return result; //JavaScript object
-    return [JSON.stringify(result), date]; // JSON, Time/Date 
+    return [obj, date]; // JSON, Time/Date 
 }
