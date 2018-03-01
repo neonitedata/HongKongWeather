@@ -36,9 +36,18 @@ fs.readdir( './orgData', function( err, files ) {
  * Get Date in new format
  * @param {string} file 
  */
-function extractDate( file ){
-    var date = file.split('l');
-    console.log(date[0])    
+function extractDate( date ){
+    var time = date.slice(28, 33)
+    var day = date.slice(49, date.length)
+
+    time += ":00";
+
+    console.log(time);    
+    console.log(day);
+
+    date = day+" "+time;
+    console.log( new Date( date ) )
+    
 }
 
 
@@ -65,7 +74,7 @@ function csvJSON(csv){
     var result = [];
     var date = lines[0];
 
-    console.log(date)
+    extractDate(date);
     
     var headers = lines[1].split(",");
 
