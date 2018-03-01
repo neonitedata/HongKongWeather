@@ -4,35 +4,36 @@ var fs = require('fs');
 var readDir = './orgData/';
 var dataFile = './cleanData/database.csv';
 
+init();
+
 /**
  * Read Directory and loop all files
  */
-fs.readdir( './orgData', function( err, files ) {
+function init(){
+    fs.readdir( './orgData', function( err, files ) {
 
-    // Error Throw if the directory isn't existing
-    if( err ) {
-        console.error( "Could not list the directory.", err );
-        process.exit( 1 );
-    }
-    
-    // loop all files within directory
-    files.forEach( function( file, index ) {
+        // Error Throw if the directory isn't existing
+        if( err ) {
+            console.error( "Could not list the directory.", err );
+            process.exit( 1 );
+        }
+        
+        // loop all files within directory
+        files.forEach( function( file, index ) {
 
-        // Check if file exists;
-        fs.stat( readDir+file, function( error, stat ) {
-            if( error ) {
-                console.error( "Error stating file.", error );
-                return;
-            }
-            
-            // send file path to format File function
-           fs.readFile(readDir+file,'utf8', formatFile);
+            // Check if file exists;
+            fs.stat( readDir+file, function( error, stat ) {
+                if( error ) {
+                    console.error( "Error stating file.", error );
+                    return;
+                }
+                
+                // send file path to format File function
+            fs.readFile(readDir+file,'utf8', formatFile);
+            });
         });
-
     });
-
-});
-
+}
 
 /**
  * Get Date in new format
