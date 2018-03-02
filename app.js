@@ -70,6 +70,7 @@ function addToDataset(err, content){
              console.log( dailyRecord[0][i] ) 
             //dataSet[dailyRecord[0][i]]
         }
+        console.log('-----')
     } 
     console.log( dailyRecord )
     //fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);    
