@@ -12,5 +12,6 @@
     "kong"
   ],
   "author": "dennys hess",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {}
 }
