@@ -1,10 +1,10 @@
 var fs = require('fs');
 
 // Path Definition
-var readDir = './orgData/';
-var dataFile = './cleanData/';
-var outputFormat = 'json';
-var dataSet = {};
+var 	readDir = './orgData/',
+	dataFile = './cleanData/',
+	outputFormat = 'json',
+	dataSet = {};
 
 // Init the app
 init();
@@ -73,7 +73,7 @@ function addToDataset(err, content){
         console.log('-----')
     }
     console.log( dailyRecord )
-    //fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);
+  //  fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);
 }
 
 
