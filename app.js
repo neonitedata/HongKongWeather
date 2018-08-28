@@ -1,10 +1,10 @@
 var fs = require('fs');
 
 // Path Definition
-var 	readDir = './orgData/',
-	dataFile = './cleanData/',
-	outputFormat = 'json',
-	dataSet = {};
+var readDir = './orgData/';
+var dataFile = './cleanData/';
+var outputFormat = 'json';
+var dataSet = {};
 
 // Init the app
 init();
@@ -61,13 +61,15 @@ function extractDate( date ){
  */
 function addToDataset(err, content){
     // do Formating
-    var dailyRecord = formatData(content);
-    for( var i = 0; i<dailyRecord[0].length; i++ ){
-        if( !dataSet[dailyRecord[0][i]] ){
-            console.log( dailyRecord[0][i] )
+    var dailyRecord = formatData(content),
+				obj = dailyRecord[0]
+		// loop through data
+    for( var i = 0; i<obj.length; i++ ){
+        if( !dataSet[obj[i]] ){
+            console.log( obj[i] )
            // dataSet[dailyRecord[0][i]] = new Array();
         }else{
-             console.log( dailyRecord[0][i] )
+             console.log( obj[i] )
             //dataSet[dailyRecord[0][i]]
         }
         console.log('-----')
@@ -83,23 +85,17 @@ function addToDataset(err, content){
  * @return {array}
  */
 function formatData(csv){
-    var lines = csv.split("\n");
-    var date =  extractDate(lines[0]);
-    var headers = lines[1].split(",");
-
-    // define base of line object
-    /*for(var h = 0; h<headers.length; h++){
-        result[headers[h]] = {}
-    }*/
-
-    var obj = {};
+    var lines 		=	csv.split("\n"),
+				date 			=	extractDate(lines[0]),
+				headers 	=	lines[1].split(","),
+				obj 			= {};
 
     // Loop lines (stations)
     for(var i = 2; i < lines.length; i++) {
         var currentline = lines[i].split(",");
 
         // Loop through data points within line (station)
-        for( var j = 1; j<headers.length; j++ ){
+        for( var j = 1; j<headers.length-1; j++ ){
             if( !obj[headers[j]] )
                 obj[headers[j]] = new Array(currentline[j]);
             else
