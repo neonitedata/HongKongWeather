@@ -33,17 +33,29 @@ function init(){
                 }
 
                 // send file path to format File function
-            fs.readFile(readDir+file,'utf8', addToDataset);
+            fs.readFile(readDir+file,'utf8', processFile);
             });
         });
     });
 }
+
+
+/**
+ * Save a particular datapoint to a particular dataSet
+ */
+function saveToFile( file, data){
+
+
+
+}
+
 
 /**
  * Get Date in new format
  * @param {string} file
  */
 function extractDate( date ){
+
     var time = date.slice(28, 33)+":00";
     var day = date.slice(49, date.length)
 
@@ -55,20 +67,24 @@ function extractDate( date ){
 
 
 /**
- * Formating the file to fit into the new textfile
+ * Process and Format the file to fit into new structure
  * @param {obj} err
  * @param {string} content
  */
-function addToDataset(err, content){
-    var obj = formatData(content)[0];
+function processFile(err, content){
+    var obj = formatData(content),
+				date = obj[1],
+				obj = obj[0];
 
 	  // loop through type of weather data
 		for(var item in obj){
-			console.log(item) // weather data type
-			console.log(obj[item])  // records for this timestamp fo reach station
+			saveToFile(date, item, obj[item]);// Save particular category with records
+			// console.log(item) 					// weather data type
+			//console.log(obj)  		// records for this timestamp fo reach station
 		}
 
-  //  fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);
+
+  	// fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);
 }
 
 
@@ -84,7 +100,7 @@ function formatData(csv){
 				obj 			= {};
 
     // Loop lines (stations)
-    for(var i = 2; i < lines.length; i++) {
+    for(var i = 2; i < lines.length-1; i++) {
         var currentline = lines[i].split(",");
 
         // Loop through data points within line (station)
@@ -95,6 +111,7 @@ function formatData(csv){
                 obj[headers[j]].push(currentline[j])
         }
     }
+
 
     //return result; //JavaScript object
     return [obj, date]; // JSON, Time/Date
