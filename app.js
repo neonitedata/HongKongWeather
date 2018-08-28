@@ -1,10 +1,10 @@
 var fs = require('fs');
 
 // Path Definition
-var readDir = './orgData/';
-var dataFile = './cleanData/';
-var outputFormat = 'json';
-var dataSet = {};
+var readDir = './orgData/',
+		dataFile = './cleanData/',
+		outputFormat = 'json',
+		dataSet = {};
 
 // Init the app
 init();
@@ -60,21 +60,14 @@ function extractDate( date ){
  * @param {string} content
  */
 function addToDataset(err, content){
-    // do Formating
-    var dailyRecord = formatData(content),
-				obj = dailyRecord[0]
-		// loop through data
-    for( var i = 0; i<obj.length; i++ ){
-        if( !dataSet[obj[i]] ){
-            console.log( obj[i] )
-           // dataSet[dailyRecord[0][i]] = new Array();
-        }else{
-             console.log( obj[i] )
-            //dataSet[dailyRecord[0][i]]
-        }
-        console.log('-----')
-    }
-    console.log( dailyRecord )
+    var obj = formatData(content)[0];
+
+	  // loop through type of weather data
+		for(var item in obj){
+			console.log(item) // weather data type
+			console.log(obj[item])  // records for this timestamp fo reach station
+		}
+
   //  fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);
 }
 
