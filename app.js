@@ -14,7 +14,7 @@ init();
  * Read Directory and loop all files
  */
 function init(){
-    fs.readdir( './orgData', function( err, files ) {
+    fs.readdir( readDir, function( err, files ) {
 
         // Error Throw if the directory isn't existing
         if( err ) {
@@ -43,10 +43,8 @@ function init(){
 /**
  * Save a particular datapoint to a particular dataSet
  */
-function saveToFile( file, data){
-
-
-
+function saveToFile( file, date, data){
+ console.log(date, file)
 }
 
 
@@ -66,6 +64,7 @@ function extractDate( date ){
 }
 
 
+
 /**
  * Process and Format the file to fit into new structure
  * @param {obj} err
@@ -78,14 +77,12 @@ function processFile(err, content){
 
 	  // loop through type of weather data
 		for(var item in obj){
-			saveToFile(date, item, obj[item]);// Save particular category with records
-			// console.log(item) 					// weather data type
-			//console.log(obj)  		// records for this timestamp fo reach station
+			saveToFile(item, date, obj[item]);	// Save particular category with records
 		}
-
 
   	// fs.appendFileSync(dataFile+''+dailyRecord[1]+'.'+outputFormat, dailyRecord[0]);
 }
+
 
 
 /**
